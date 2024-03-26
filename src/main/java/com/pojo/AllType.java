@@ -1,6 +1,5 @@
-package com.mybatisdemo.pojo;
+package com.pojo;
 
-@Data
 public class AllType {
     private int info_int;
 }
