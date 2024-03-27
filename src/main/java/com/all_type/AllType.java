@@ -1,7 +1,6 @@
-package pojo;
+package com.all_type;
 
 public class AllType {
-    private int info_int;
 
     public int getInfo_int() {
         return info_int;
@@ -10,4 +9,6 @@ public class AllType {
     public void setInfo_int(int info_int) {
         this.info_int = info_int;
     }
+
+    private int info_int;
 }

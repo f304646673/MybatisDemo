@@ -1,6 +1,6 @@
 package org.example;
 
-import pojo.AllType;
+import com.all_type.AllType;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.*;
 
