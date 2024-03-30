@@ -22,7 +22,7 @@ public class Main {
                 System.out.println(a.getInfo_int());
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
     }
