@@ -1,4 +1,4 @@
-package com.all_type;
+package org.example.model;
 
 public class AllType {
 
