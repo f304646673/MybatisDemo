@@ -88,9 +88,10 @@ public class AllTypeTest {
             AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
             AllType a = new AllType();
             a.setInfo_int(105);
+            a.setInfo_tint((byte) 20);
             a.setInfo_sint((short) 10);
-            boolean r = all_type_mapper.updateElems(a);
-            System.out.println(r);
+            long count = all_type_mapper.updateElems(a);
+            System.out.println(count);
         }
     }
 
@@ -105,8 +106,12 @@ public class AllTypeTest {
         SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in);
         try (SqlSession s = sqlSFLocal.openSession(true)) {
             AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
-            int a = all_type_mapper.deleteElem("info_int", 11);
-            System.out.println(a);
+            long count = all_type_mapper.deleteElemWhereInfoIntLessThen(103);
+            System.out.println(count);
+            count = all_type_mapper.deleteElem("info_int", "<",105);
+            System.out.println(count);
+            count = all_type_mapper.deleteElem("info_int", ">",106);
+            System.out.println(count);
         }
     }
 
@@ -130,8 +135,28 @@ public class AllTypeTest {
         SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in);
         try (SqlSession s = sqlSFLocal.openSession(true)) {
             AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
-            int a = all_type_mapper.insertElems(allTypelist);
-            System.out.println(a);
+            long count = all_type_mapper.insertElems(allTypelist);
+            System.out.println(count);
+        }
+    }
+
+    @Test
+    void testLog() {
+        InputStream in = null;
+        try {
+            in = Resources.getResourceAsStream("mybatis/config/mybatis-config-2.xml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in);
+        try (SqlSession s = sqlSF.openSession(true)) {
+            AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
+            AllType a = all_type_mapper.findOne(105);
+            if (a != null) {
+                System.out.println(a.getInfo_sint());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }

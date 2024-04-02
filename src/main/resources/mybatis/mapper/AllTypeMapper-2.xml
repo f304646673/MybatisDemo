@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AllTypeMapper-2.xml -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.AllTypeMapper">
+    <select id="findAll" resultType="AllType">
+        select * from all_type
+    </select>
+    <select id="findOne" resultType="AllType">
+        select * from all_type where info_int = #{info_int}
+    </select>
+</mapper>

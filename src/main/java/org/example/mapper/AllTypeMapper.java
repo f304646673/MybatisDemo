@@ -8,9 +8,11 @@ import java.util.List;
 public interface AllTypeMapper {
     AllType findOne(int info_int);
 
-    int insertElems(List<AllType> AllTypeList);
+    long insertElems(List<AllType> AllTypeList);
 
-    int deleteElem(@Param("column_name") String column_name, @Param("value") int value);
+    long deleteElemWhereInfoIntLessThen(int info_int);
 
-    boolean updateElems(AllType item);
+    long deleteElem(@Param("column_name") String column_name, @Param("comparison_operator") String comparison_operator, @Param("value") int value);
+
+    long updateElems(AllType item);
 }
