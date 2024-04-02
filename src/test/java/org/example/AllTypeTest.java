@@ -11,10 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class AllTypeTest {
     private static SqlSessionFactory sqlSF;
@@ -72,6 +69,66 @@ public class AllTypeTest {
                     System.out.println(a.getInfo_int());
                 }
             }
+        }
+    }
+
+    @Test
+    void testUpdate() {
+        InputStream in = null;
+        try {
+            in = Resources.getResourceAsStream("mybatis/config/mybatis-config-multi-env-2.xml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in, "production");
+        try (SqlSession s = sqlSFLocal.openSession(true)) {
+            AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
+            AllType a = new AllType();
+            a.setInfo_int(105);
+            a.setInfo_sint((short) 10);
+            boolean r = all_type_mapper.updateElems(a);
+            System.out.println(r);
+        }
+    }
+
+    @Test
+    void testDelete() {
+        InputStream in = null;
+        try {
+            in = Resources.getResourceAsStream("mybatis/config/mybatis-config-multi-env-2.xml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in, "production");
+        try (SqlSession s = sqlSFLocal.openSession(true)) {
+            AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
+            int a = all_type_mapper.deleteElem("info_int", 11);
+            System.out.println(a);
+        }
+    }
+
+    @Test
+    void testBatchInsert() {
+        List<AllType> allTypelist= new LinkedList<>();
+        for (byte i = 100; i < 110; i++) {
+            AllType allType = new AllType();
+            allType.setInfo_int(i);
+            allType.setInfo_sint(i);
+            allType.setInfo_tint(i);
+            allTypelist.add(allType);
+        }
+
+        InputStream in = null;
+        try {
+            in = Resources.getResourceAsStream("mybatis/config/mybatis-config-multi-env-2.xml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in, "production");
+        try (SqlSession s = sqlSFLocal.openSession(true)) {
+            AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
+            int a = all_type_mapper.insertElems(allTypelist);
+            System.out.println(a);
         }
     }
 }
