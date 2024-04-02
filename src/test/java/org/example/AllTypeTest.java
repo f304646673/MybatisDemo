@@ -76,11 +76,11 @@ public class AllTypeTest {
     void testUpdate() {
         InputStream in = null;
         try {
-            in = Resources.getResourceAsStream("mybatis/config/mybatis-config-multi-env-2.xml");
+            in = Resources.getResourceAsStream("mybatis/config/mybatis-config-1.xml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in, "production");
+        SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in);
         try (SqlSession s = sqlSFLocal.openSession(true)) {
             AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
             AllType a = new AllType();
@@ -95,11 +95,11 @@ public class AllTypeTest {
     void testDelete() {
         InputStream in = null;
         try {
-            in = Resources.getResourceAsStream("mybatis/config/mybatis-config-multi-env-2.xml");
+            in = Resources.getResourceAsStream("mybatis/config/mybatis-config-1.xml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in, "production");
+        SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in);
         try (SqlSession s = sqlSFLocal.openSession(true)) {
             AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
             int a = all_type_mapper.deleteElem("info_int", 11);
@@ -120,11 +120,11 @@ public class AllTypeTest {
 
         InputStream in = null;
         try {
-            in = Resources.getResourceAsStream("mybatis/config/mybatis-config-multi-env-2.xml");
+            in = Resources.getResourceAsStream("mybatis/config/mybatis-config-1.xml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in, "production");
+        SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in);
         try (SqlSession s = sqlSFLocal.openSession(true)) {
             AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
             int a = all_type_mapper.insertElems(allTypelist);
