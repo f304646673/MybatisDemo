@@ -62,12 +62,15 @@ public class AllTypeTest {
                 throw new RuntimeException(e);
             }
             SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in, "production");
+
+            List<AllType> all = null;
             try (SqlSession s = sqlSFLocal.openSession()) {
-                AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
-                AllType a = all_type_mapper.findOne(11);
-                if (a != null) {
-                    System.out.println(a.getInfo_int());
-                }
+                all = s.selectList("org.example.mapper.AllTypeMapper.findAll");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            for (AllType a : Objects.requireNonNull(all)) {
+                System.out.println(a.getInfo_int());
             }
         }
     }

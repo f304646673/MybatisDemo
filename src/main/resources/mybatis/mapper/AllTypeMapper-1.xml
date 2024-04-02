@@ -9,4 +9,16 @@
     <select id="findOne" resultType="AllType">
         select * from all_type where info_int = #{info_int}
     </select>
+    <insert id="insertElems">
+        insert into all_type(info_int, info_tint, info_sint) values
+        <foreach item="item" collection="list" separator=",">
+            (#{item.info_int}, #{item.info_tint}, #{item.info_sint})
+        </foreach>
+    </insert>
+    <delete id="deleteElem">
+        delete from all_type where ${column_name} = #{value}
+    </delete>
+    <update id="updateElems">
+        update all_type set info_sint = #{info_sint} where info_int > #{info_int}
+    </update>
 </mapper>
