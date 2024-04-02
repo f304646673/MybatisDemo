@@ -36,7 +36,6 @@ public class AllTypeTest {
         try {
             InputStream in = Resources.getResourceAsStream("mybatis/config/mybatis-config.xml");
             SqlSessionFactory sqlSF = new SqlSessionFactoryBuilder().build(in);
-            List<AllType> all;
             try (SqlSession s = sqlSF.openSession()) {
                 AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
                 AllType a = all_type_mapper.findOne(1);
