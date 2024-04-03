@@ -3,6 +3,7 @@ package org.example.mapper;
 import org.apache.ibatis.annotations.Param;
 import org.example.model.AllType;
 import org.example.model.AllTypeRename;
+import org.example.model.AllTypeEnum;
 
 import java.util.List;
 
@@ -20,4 +21,8 @@ public interface AllTypeMapper {
     AllTypeRename findRenameOne(int intInfo);
 
     List<AllTypeRename> findRenameList(int intInfo);
+
+    AllTypeEnum findEnumOne(int intInfo);
+
+    List<AllTypeEnum> findEnumList(int intInfo);
 }

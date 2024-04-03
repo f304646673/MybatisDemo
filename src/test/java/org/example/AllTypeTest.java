@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.example.model.AllTypeRename;
+import org.example.model.AllTypeEnum;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -195,6 +196,27 @@ public class AllTypeTest {
             List<AllTypeRename> all = null;
             all = all_type_mapper.findRenameList(1);
             for (AllTypeRename a : Objects.requireNonNull(all)) {
+                System.out.println(a.getShortInfo());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    void testEnumHanlder() {
+        InputStream in = null;
+        try {
+            in = Resources.getResourceAsStream("mybatis/config/mybatis-config-enum.xml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in);
+        try (SqlSession s = sqlSFLocal.openSession()) {
+            AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
+            List<AllTypeEnum> all = null;
+            all = all_type_mapper.findEnumList(1);
+            for (AllTypeEnum a : Objects.requireNonNull(all)) {
                 System.out.println(a.getShortInfo());
             }
         } catch (Exception e) {
