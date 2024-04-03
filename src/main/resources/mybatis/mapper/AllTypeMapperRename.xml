@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AllTypeMapperRename.xml -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.AllTypeMapper">
+    <resultMap id="allTypeRenameResultMap" type="AllTypeRename">
+        <result property="intInfo" column="info_int"/>
+        <result property="byteInfo" column="info_tint"/>
+        <result property="shortInfo" column="info_sint"/>
+    </resultMap>
+
+    <select id="findRenameList" resultMap="allTypeRenameResultMap">
+        select * from all_type where info_int != #{intInfo}
+    </select>
+
+    <select id="findRenameOne" resultType="AllTypeRename">
+        select
+            info_int as "intInfo",
+            info_tint as "byteInfo",
+            info_sint as "shortInfo"
+        from all_type where info_int = #{intInfo}
+    </select>
+</mapper>

@@ -6,6 +6,7 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.example.model.AllTypeRename;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -154,6 +155,47 @@ public class AllTypeTest {
             AllType a = all_type_mapper.findOne(105);
             if (a != null) {
                 System.out.println(a.getInfo_sint());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    void testRenameOne() {
+        InputStream in = null;
+        try {
+            in = Resources.getResourceAsStream("mybatis/config/mybatis-config-rename.xml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in);
+        try (SqlSession s = sqlSFLocal.openSession()) {
+            AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
+            AllTypeRename a = all_type_mapper.findRenameOne(1);
+            if (a != null) {
+                System.out.println(a.getShortInfo());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    void testRenameList() {
+        InputStream in = null;
+        try {
+            in = Resources.getResourceAsStream("mybatis/config/mybatis-config-rename.xml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in);
+        try (SqlSession s = sqlSFLocal.openSession()) {
+            AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
+            List<AllTypeRename> all = null;
+            all = all_type_mapper.findRenameList(1);
+            for (AllTypeRename a : Objects.requireNonNull(all)) {
+                System.out.println(a.getShortInfo());
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
