@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AllTypeMapperRename.xml -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.ShirtsMapper">
+    <resultMap id="allTypeRenameResultMap" type="AllTypeRename">
+        <result property="intInfo" column="info_int"/>
+        <result property="byteInfo" column="info_tint"/>
+        <result property="shortInfo" column="info_sint"/>
+    </resultMap>
+
+    <select id="findShirts" resultType="Shirts">
+        select * from shirts where size = #{size}
+    </select>
+
+    <update id="updateShirts">
+        update shirts set name = #{name} where size = #{size}
+    </update>
+</mapper>

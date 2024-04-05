@@ -3,13 +3,14 @@ package org.example.mapper;
 import org.apache.ibatis.annotations.Param;
 import org.example.model.AllType;
 import org.example.model.AllTypeRename;
+import org.example.model.JsonType;
 
 import java.util.List;
 
 public interface AllTypeMapper {
     AllType findOne(int info_int);
 
-    long insertElems(List<AllType> AllTypeList);
+    long insertElems(List<AllType> allTypeList);
 
     long deleteElemWhereInfoIntLessThen(int info_int);
 
@@ -20,4 +21,8 @@ public interface AllTypeMapper {
     AllTypeRename findRenameOne(int intInfo);
 
     List<AllTypeRename> findRenameList(int intInfo);
+
+    long insertJsonTypeElems(List<JsonType> jsonTypeList);
+    long updateJsonTypeElems(JsonType jsonType);
+    List<JsonType> selectJsonTypeElems(int intInfo);
 }

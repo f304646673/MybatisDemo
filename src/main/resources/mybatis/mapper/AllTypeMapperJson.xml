@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AllTypeMapper-1.xml -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.AllTypeMapper">
+    <parameterMap id="jsonTypeParameterMap" type="JsonType">
+        <parameter property="jsonElemList" jdbcType="LONGVARCHAR" typeHandler="org.example.typehandlers.JsonListHandler"/>
+    </parameterMap>
+
+    <resultMap id="jsonTypeResultMap" type="JsonType">
+        <result property="intInfo" column="info_int"/>
+        <result property="jsonElemList" column="info_char" jdbcType="LONGVARCHAR" typeHandler="org.example.typehandlers.JsonListHandler"/>
+    </resultMap>
+
+    <insert id="insertJsonTypeElems">
+        insert into all_type(info_int, info_ltext) values
+        <foreach item="item" collection="list" separator=",">
+            (#{item.intInfo}, #{item.jsonElemList, typeHandler=org.example.typehandlers.JsonListHandler})
+        </foreach>
+    </insert>
+
+    <update id="updateJsonTypeElems">
+        update all_type set info_ltext  = #{jsonElemList, jdbcType=LONGVARCHAR} where info_int = #{intInfo}
+    </update>
+
+    <select id="selectJsonTypeElems" resultMap="jsonTypeResultMap">
+        select * from all_type
+    </select>
+</mapper>
