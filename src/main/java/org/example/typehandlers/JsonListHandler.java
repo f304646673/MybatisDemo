@@ -13,11 +13,7 @@ import java.sql.SQLException;
 
 @MappedJdbcTypes(JdbcType.LONGVARCHAR)
 public class JsonListHandler extends BaseTypeHandler<JsonType.JsonList> {
-    @Override
-    public void setParameter(PreparedStatement ps, int i, JsonType.JsonList parameter, JdbcType jdbcType) throws SQLException {
-        String jsonStr = JSON.toJSONString(parameter);
-        ps.setString(i, jsonStr);
-    }
+
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, JsonType.JsonList parameter, JdbcType jdbcType) throws SQLException {
         String jsonStr = JSON.toJSONString(parameter);
@@ -25,34 +21,15 @@ public class JsonListHandler extends BaseTypeHandler<JsonType.JsonList> {
     }
 
     @Override
-    public JsonType.JsonList getResult(ResultSet rs, String columnName) throws SQLException {
-        String jsonStr = rs.getString(columnName);
-        return JSON.parseObject(jsonStr, JsonType.JsonList.class);
-    }
-
-    @Override
     public JsonType.JsonList getNullableResult(ResultSet rs, String columnName) throws SQLException {
         String jsonStr = rs.getString(columnName);
         return JSON.parseObject(jsonStr, JsonType.JsonList.class);
-//        return rs.getString(columnName);
     }
 
-    @Override
-    public JsonType.JsonList getResult(ResultSet rs, int columnIndex) throws SQLException {
-        String jsonStr = rs.getString(columnIndex);
-        return JSON.parseObject(jsonStr, JsonType.JsonList.class);
-    }
 
     @Override
     public JsonType.JsonList getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
         String jsonStr = rs.getString(columnIndex);
-        return JSON.parseObject(jsonStr, JsonType.JsonList.class);
-//        return rs.getString(columnIndex);
-    }
-
-    @Override
-    public JsonType.JsonList getResult(CallableStatement cs, int columnIndex) throws SQLException {
-        String jsonStr = cs.getString(columnIndex);
         return JSON.parseObject(jsonStr, JsonType.JsonList.class);
     }
 
@@ -60,6 +37,5 @@ public class JsonListHandler extends BaseTypeHandler<JsonType.JsonList> {
     public JsonType.JsonList getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
         String jsonStr = cs.getString(columnIndex);
         return JSON.parseObject(jsonStr, JsonType.JsonList.class);
-//        return cs.getString(columnIndex);
     }
 }
