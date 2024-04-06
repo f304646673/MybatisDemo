@@ -15,7 +15,6 @@ import java.util.Properties;
         method = "update",
         args = {MappedStatement.class, Object.class}
 ))
-
 public class DeleteInterceptor implements Interceptor {
     private Properties properties;
 
