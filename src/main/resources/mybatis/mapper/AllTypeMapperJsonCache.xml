@@ -13,14 +13,14 @@
         <result property="jsonElemList" column="info_ltext" jdbcType="LONGVARCHAR" typeHandler="org.example.typehandlers.JsonListHandler"/>
     </resultMap>
 
-    <insert id="insertJsonTypeElems">
+    <insert id="insertJsonTypeElems" flushCache = "true">
         insert into all_type(info_int, info_ltext) values
         <foreach item="item" collection="list" separator=",">
             (#{item.intInfo}, #{item.jsonElemList, typeHandler=org.example.typehandlers.JsonListHandler})
         </foreach>
     </insert>
 
-    <update id="updateJsonTypeElems">
+    <update id="updateJsonTypeElems" flushCache = "true">
         update all_type set info_ltext  = #{jsonElemList, jdbcType=LONGVARCHAR} where info_int = #{intInfo}
     </update>
 
