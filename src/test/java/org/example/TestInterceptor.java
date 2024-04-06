@@ -5,45 +5,40 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.example.mapper.AllTypeMapper;
-import org.example.model.AllType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-import java.util.Objects;
 
-public class InjectTest {
+public class TestInterceptor {
     private static SqlSessionFactory sqlSF;
 
     @BeforeAll
     static void CreateSessionFactory() throws IOException {
-        InputStream in = Resources.getResourceAsStream("mybatis/config/mybatis-config-inject.xml");
+        InputStream in = Resources.getResourceAsStream("mybatis/config/mybatis-config-interceptor.xml");
         sqlSF = new SqlSessionFactoryBuilder().build(in);
     }
 
     @Test
-    void testUpdate() {
+    void testDeleteElem() {
         try (SqlSession s = sqlSF.openSession(true)) {
             AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
-            AllType a = new AllType(0, (byte)0, (short)0);
-            a.setInfo_int(10);
-            a.setInfo_tint((byte) 20);
-            a.setInfo_sint((short) 10);
-            long count = all_type_mapper.updateElems(a);
+            long count = all_type_mapper.deleteElem("info_int", "<",105);
             System.out.println(count);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
     @Test
-    void testSelect() {
+    void testDeleteElemWhereInfoIntLessThen() {
         try (SqlSession s = sqlSF.openSession(true)) {
             AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
-            List<AllType> all = all_type_mapper.find(101);
-            for (AllType a : Objects.requireNonNull(all)) {
-                System.out.println(a.getInfo_int());
-            }
+            long count = all_type_mapper.deleteElemWhereInfoIntLessThen(103);
+            System.out.println(count);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }

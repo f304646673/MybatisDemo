@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!-- mybatis-config-2.xml -->
+<!-- mybatis-config-interceptor.xml -->
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
@@ -19,7 +19,7 @@
         <property name="someProperty" value="100"/>
     </objectFactory>
     <plugins>
-        <plugin interceptor="org.example.inject.UpdateActions">
+        <plugin interceptor="org.example.interceptor.DeleteInterceptor">
             <property name="someProperty" value="100"/>
         </plugin>
     </plugins>
@@ -35,7 +35,7 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mybatis/mapper/AllTypeMapperInject.xml"/>
+        <mapper resource="mybatis/mapper/AllTypeMapperInterceptor.xml"/>
     </mappers>
 
 </configuration>
