@@ -1,6 +1,10 @@
 package org.example.model;
 
 public class AllType {
+//    public  AllType() {
+//
+//    }
+
     public AllType(int info_int, byte info_tint, short info_sint) {
         this.info_int = info_int;
         this.info_tint = info_tint;

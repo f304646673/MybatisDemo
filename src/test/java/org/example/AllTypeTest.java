@@ -40,7 +40,7 @@ public class AllTypeTest {
     void testFind() {
         try (SqlSession s = sqlSF.openSession()) {
             AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
-            List<AllType> all = all_type_mapper.find(1);
+            List<AllType> all = all_type_mapper.find(101);
             for (AllType a : Objects.requireNonNull(all)) {
                 System.out.println(a.getInfo_int());
             }
