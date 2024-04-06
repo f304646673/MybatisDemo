@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- AllTypeMapperJson.xml -->
+<!-- AllTypeMapperJsonCache.xml -->
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -24,7 +24,13 @@
         update all_type set info_ltext  = #{jsonElemList, jdbcType=LONGVARCHAR} where info_int = #{intInfo}
     </update>
 
-    <select id="selectJsonTypeElems" resultMap="jsonTypeResultMap">
-        select * from all_type
+    <cache type="org.example.cache.JsonTypeCache"/>
+
+    <select id="selectJsonTypeElems" resultMap="jsonTypeResultMap" useCache = "true">
+        select * from all_type where info_int = #{intInfo}
     </select>
+
+    <delete id="deleteJsonTypeElems" flushCache = "true">
+        delete from all_type where info_int = #{intInfo}
+    </delete>
 </mapper>

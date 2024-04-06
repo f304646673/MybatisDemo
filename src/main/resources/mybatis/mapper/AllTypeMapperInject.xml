@@ -19,4 +19,8 @@
     <update id="updateElems">
         update all_type set info_tint = #{info_tint}, info_sint = #{info_sint} where info_int &gt; #{info_int}
     </update>
+
+    <select id="find" resultType="AllType">
+        select * from all_type where info_int = #{info_int}
+    </select>
 </mapper>

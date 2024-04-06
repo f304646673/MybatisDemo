@@ -8,7 +8,7 @@ import org.example.model.JsonType;
 import java.util.List;
 
 public interface AllTypeMapper {
-    AllType findOne(int info_int);
+    List<AllType> find(int info_int);
 
     long insertElems(List<AllType> allTypeList);
 
@@ -25,4 +25,6 @@ public interface AllTypeMapper {
     long insertJsonTypeElems(List<JsonType> jsonTypeList);
     long updateJsonTypeElems(JsonType jsonType);
     List<JsonType> selectJsonTypeElems(int intInfo);
+
+    long deleteJsonTypeElems(int intInfo);
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!-- mybatis-config-simple.xml -->
+<!-- mybatis-config-json-cache.xml -->
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
@@ -9,12 +9,12 @@
         <property name="username" value="root"/>
         <property name="password" value="fangliang"/>
     </properties>
-    <settings>
-        <setting name="logImpl" value="STDOUT_LOGGING"/>
-    </settings>
     <typeAliases>
-        <typeAlias type="org.example.model.Shirts" alias="Shirts"/>
+        <typeAlias type="org.example.model.JsonType" alias="JsonType"/>
     </typeAliases>
+    <typeHandlers>
+        <typeHandler handler="org.example.typehandlers.JsonListHandler" jdbcType="LONGVARCHAR"/>
+    </typeHandlers>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -27,7 +27,6 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mybatis/mapper/ShirtsMapper.xml"/>
+        <mapper resource="mybatis/mapper/AllTypeMapperJsonCache.xml"/>
     </mappers>
-
 </configuration>
