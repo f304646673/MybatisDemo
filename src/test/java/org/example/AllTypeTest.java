@@ -38,11 +38,11 @@ public class AllTypeTest {
     }
 
     @Test
-    void testFindOne() {
+    void testFind() {
         try (SqlSession s = sqlSF.openSession()) {
             AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
-            AllType a = all_type_mapper.findOne(1);
-            if (a != null) {
+            List<AllType> all = all_type_mapper.find(101);
+            for (AllType a : Objects.requireNonNull(all)) {
                 System.out.println(a.getInfo_int());
             }
         } catch (Exception e) {
@@ -88,7 +88,7 @@ public class AllTypeTest {
         SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in);
         try (SqlSession s = sqlSFLocal.openSession(true)) {
             AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
-            AllType a = new AllType();
+            AllType a = new AllType(0, (byte)0, (short)0);
             a.setInfo_int(105);
             a.setInfo_tint((byte) 20);
             a.setInfo_sint((short) 10);
@@ -121,7 +121,7 @@ public class AllTypeTest {
     void testBatchInsert() {
         List<AllType> allTypelist= new LinkedList<>();
         for (byte i = 100; i < 110; i++) {
-            AllType allType = new AllType();
+            AllType allType = new AllType(0, (byte)0, (short)0);
             allType.setInfo_int(i);
             allType.setInfo_sint(i);
             allType.setInfo_tint(i);
@@ -153,9 +153,9 @@ public class AllTypeTest {
         SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in);
         try (SqlSession s = sqlSF.openSession(true)) {
             AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
-            AllType a = all_type_mapper.findOne(105);
-            if (a != null) {
-                System.out.println(a.getInfo_sint());
+            List<AllType> all = all_type_mapper.find(105);
+            for (AllType a : Objects.requireNonNull(all)) {
+                System.out.println(a.getInfo_int());
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

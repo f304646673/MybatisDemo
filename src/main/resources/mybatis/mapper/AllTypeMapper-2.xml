@@ -7,7 +7,7 @@
     <select id="findAll" resultType="AllType">
         select * from all_type
     </select>
-    <select id="findOne" resultType="AllType">
+    <select id="find" resultType="AllType">
         select * from all_type where info_int = #{info_int}
     </select>
 </mapper>
