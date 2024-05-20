@@ -27,12 +27,12 @@ import org.locationtech.jts.geom.MultiPoint;
 import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Polygon;
 
-public class GeometryDataTest {
+public class GeometryDataWKBTest {
     private static SqlSessionFactory sqlSF;
 
     @BeforeAll
     static void CreateSessionFactory() throws IOException {
-        InputStream in = Resources.getResourceAsStream("mybatis/config/mybatis-config-geometry.xml");
+        InputStream in = Resources.getResourceAsStream("mybatis/config/mybatis-config-geometry-wkb.xml");
         sqlSF = new SqlSessionFactoryBuilder().build(in);
     }
 

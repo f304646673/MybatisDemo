@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class GeometryTypeHandler extends BaseTypeHandler<Geometry>  {
+public class GeometryTypeWKBHandler extends BaseTypeHandler<Geometry>  {
     private static final PrecisionModel PRECISION_MODEL = new PrecisionModel(PrecisionModel.FIXED);
     private static final Map<Integer, GeometryFactory> GEOMETRY_FACTORIES = new ConcurrentHashMap<>();
 

@@ -6,7 +6,7 @@
 <mapper namespace="org.example.mapper.GeometryDataMapper">
     <resultMap id="GeometryDataResultMap" type="org.example.model.GeometryData">
         <result property="id" column="id"/>
-        <result property="geometry" column="geometry" typeHandler="org.example.typehandlers.GeometryTypeHandler" jdbcType="BLOB"/>
+        <result property="geometry" column="geometry" typeHandler="org.example.typehandlers.GeometryTypeWKBHandler" jdbcType="BLOB"/>
         <result property="updateTime" column="update_time"/>
         <result property="createTime" column="create_time"/>
     </resultMap>
@@ -21,17 +21,17 @@
 
     <insert id="insertOne" parameterType="org.example.model.GeometryData"  useGeneratedKeys="true" keyProperty="id">
         insert into geometry_data(id, geometry, update_time, create_time) values
-        (#{id}, #{geometry, jdbcType=BLOB, typeHandler=org.example.typehandlers.GeometryTypeHandler}, now(), now())
+        (#{id}, #{geometry, jdbcType=BLOB, typeHandler=org.example.typehandlers.GeometryTypeWKBHandler}, now(), now())
     </insert>
 
     <insert id="insertList" parameterType="list">
         insert into geometry_data(id, geometry, update_time, create_time) values
         <foreach item="item" collection="list" separator=",">
-            (#{item.id}, #{item.geometry, jdbcType=BLOB, typeHandler=org.example.typehandlers.GeometryTypeHandler}, now(), now())
+            (#{item.id}, #{item.geometry, jdbcType=BLOB, typeHandler=org.example.typehandlers.GeometryTypeWKBHandler}, now(), now())
         </foreach>
     </insert>
 
     <update id="updateOne" parameterType="org.example.model.GeometryData">
-        update geometry_data set geometry = #{geometry, jdbcType=BLOB, typeHandler=org.example.typehandlers.GeometryTypeHandler}, update_time = now() where id = #{id} 
+        update geometry_data set geometry = #{geometry, jdbcType=BLOB, typeHandler=org.example.typehandlers.GeometryTypeWKBHandler}, update_time = now() where id = #{id} 
     </update>
 </mapper>

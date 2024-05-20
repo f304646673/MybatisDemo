@@ -21,7 +21,7 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mybatis/mapper/geometry.xml"/>
+        <mapper resource="mybatis/mapper/geometry-wkb.xml"/>
     </mappers>
 
 </configuration>
