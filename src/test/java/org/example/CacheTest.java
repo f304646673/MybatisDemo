@@ -5,7 +5,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.example.mapper.AllTypeMapper;
-import org.example.model.AllType;
 import org.example.model.JsonType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

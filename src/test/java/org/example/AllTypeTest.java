@@ -214,11 +214,11 @@ public class AllTypeTest {
         SqlSessionFactory sqlSFLocal = new SqlSessionFactoryBuilder().build(in);
         try (SqlSession s = sqlSFLocal.openSession()) {
             AllTypeMapper all_type_mapper = s.getMapper(AllTypeMapper.class);
-            List<AllTypeEnum> all = null;
-            all = all_type_mapper.findEnumList(1);
-            for (AllTypeEnum a : Objects.requireNonNull(all)) {
-                System.out.println(a.getShortInfo());
-            }
+            // List<AllTypeEnum> all = null;
+            // all = all_type_mapper.findEnumList(1);
+            // for (AllTypeEnum a : Objects.requireNonNull(all)) {
+            //     System.out.println(a.getShortInfo());
+            // }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

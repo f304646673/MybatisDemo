@@ -21,5 +21,8 @@ public class Main {
         JsonType.JsonList jsonList2 = JSON.parseObject(jsonStr, JsonType.JsonList.class);
 
         System.out.println("This is Main");
+        for (JsonType.JsonElem b: jsonList2.getJsonElemList()) {
+            System.out.printf("%d %s\n", b.getFirst(), b.getSecond());
+        }
     }
 }
