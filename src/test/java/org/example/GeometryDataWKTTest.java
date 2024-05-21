@@ -1,5 +1,6 @@
 package org.example;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
@@ -12,7 +13,7 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.example.mapper.GeometryDataMapper;
+import org.example.mapper.GeometryDataWKTMapper;
 import org.example.model.GeometryData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -40,7 +41,7 @@ public class GeometryDataWKTTest {
     public void testFindAll() {
         List<GeometryData> all = null;
         try (SqlSession session = sqlSF.openSession()) {
-            all = session.getMapper(GeometryDataMapper.class).findAll();
+            all = session.getMapper(GeometryDataWKTMapper.class).findAll();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -52,8 +53,8 @@ public class GeometryDataWKTTest {
     @Test
     public void testFind() {
         try (SqlSession session = sqlSF.openSession()) {
-            GeometryDataMapper geometryDataMapper = session.getMapper(GeometryDataMapper.class);
-            GeometryData one = geometryDataMapper.find(1L);
+            GeometryDataWKTMapper GeometryDataWKTMapper = session.getMapper(GeometryDataWKTMapper.class);
+            GeometryData one = GeometryDataWKTMapper.find(1L);
             System.out.println(one.getGeometry());
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -63,13 +64,13 @@ public class GeometryDataWKTTest {
     @Test
     public void testInsert() {
         try (SqlSession session = sqlSF.openSession()) {
-            GeometryDataMapper geometryDataMapper = session.getMapper(GeometryDataMapper.class);
+            GeometryDataWKTMapper GeometryDataWKTMapper = session.getMapper(GeometryDataWKTMapper.class);
             GeometryData geometryData = new GeometryData();
             GeometryFactory geometryFactory = new GeometryFactory();
             Coordinate coordinate = new Coordinate(1, 1);
             Geometry geometry = geometryFactory.createPoint(coordinate);
             geometryData.setGeometry(geometry);
-            long count = geometryDataMapper.insertOne(geometryData);
+            long count = GeometryDataWKTMapper.insertOne(geometryData);
             System.out.println(count);
             session.commit();
         } catch (Exception e) {
@@ -81,14 +82,14 @@ public class GeometryDataWKTTest {
     @Test
     public void testUpdate() {
         try (SqlSession session = sqlSF.openSession()) {
-            GeometryDataMapper geometryDataMapper = session.getMapper(GeometryDataMapper.class);
+            GeometryDataWKTMapper GeometryDataWKTMapper = session.getMapper(GeometryDataWKTMapper.class);
             GeometryData geometryData = new GeometryData();
             GeometryFactory geometryFactory = new GeometryFactory();
             Coordinate coordinate = new Coordinate(2, 2);
             Geometry geometry = geometryFactory.createPoint(coordinate);
             geometryData.setId(1L);
             geometryData.setGeometry(geometry);
-            long count = geometryDataMapper.updateOne(geometryData);
+            long count = GeometryDataWKTMapper.updateOne(geometryData);
             System.out.println(count);
             session.commit();
         } catch (Exception e) {
@@ -100,7 +101,7 @@ public class GeometryDataWKTTest {
     @Test
     public void testInsertList() {
         try (SqlSession session = sqlSF.openSession()) {
-            GeometryDataMapper geometryDataMapper = session.getMapper(GeometryDataMapper.class);
+            GeometryDataWKTMapper GeometryDataWKTMapper = session.getMapper(GeometryDataWKTMapper.class);
 
             List<GeometryData> geometryDataList = new ArrayList<>();
             {
@@ -147,14 +148,14 @@ public class GeometryDataWKTTest {
                 geometryDataList.add(geometryData);
             }
 
-            {
-                GeometryData geometryData = new GeometryData();
-                GeometryFactory geometryFactory = new GeometryFactory();
-                LinearRing linearRing = geometryFactory.createLinearRing(new Coordinate[] { new Coordinate(1, 1),
-                        new Coordinate(2, 2), new Coordinate(3, 3), new Coordinate(1, 1) });
-                geometryData.setGeometry(linearRing);
-                geometryDataList.add(geometryData);
-            }
+            // {
+            //     GeometryData geometryData = new GeometryData();
+            //     GeometryFactory geometryFactory = new GeometryFactory();
+            //     LinearRing linearRing = geometryFactory.createLinearRing(new Coordinate[] { new Coordinate(1, 1),
+            //             new Coordinate(2, 2), new Coordinate(3, 3), new Coordinate(1, 1) });
+            //     geometryData.setGeometry(linearRing);
+            //     geometryDataList.add(geometryData);
+            // }
 
             {
                 GeometryData geometryData = new GeometryData();
@@ -174,23 +175,45 @@ public class GeometryDataWKTTest {
                 geometryDataList.add(geometryData);
             }
 
-            {
-                GeometryData geometryData = new GeometryData();
-                GeometryFactory geometryFactory = new GeometryFactory();
-                GeometryCollection geometryCollection = geometryFactory.createGeometryCollection(new Geometry[] {
-                        geometryFactory.createPoint(new Coordinate(1, 1)),
-                        geometryFactory.createLineString(new Coordinate[] { new Coordinate(1, 1), new Coordinate(2, 2) }),
-                        geometryFactory.createPolygon(new Coordinate[] { new Coordinate(1, 1), new Coordinate(2, 2),
-                                new Coordinate(3, 3), new Coordinate(1, 1) })
-                });
-                geometryData.setGeometry(geometryCollection);
-                geometryDataList.add(geometryData);
-            }
+            // {
+            //     GeometryData geometryData = new GeometryData();
+            //     GeometryFactory geometryFactory = new GeometryFactory();
+            //     GeometryCollection geometryCollection = geometryFactory.createGeometryCollection(new Geometry[] {
+            //             geometryFactory.createPoint(new Coordinate(1, 1)),
+            //             geometryFactory.createLineString(new Coordinate[] { new Coordinate(1, 1), new Coordinate(2, 2) }),
+            //             geometryFactory.createPolygon(new Coordinate[] { new Coordinate(1, 1), new Coordinate(2, 2),
+            //                     new Coordinate(3, 3), new Coordinate(1, 1) })
+            //     });
+            //     geometryData.setGeometry(geometryCollection);
+            //     geometryDataList.add(geometryData);
+            // }
 
-            long count = geometryDataMapper.insertList(geometryDataList);
+            long count = GeometryDataWKTMapper.insertList(geometryDataList);
             System.out.println(count);
             session.commit();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            fail();
+        }
+    }
+
+    @Test
+    public void testInsertGeometryCollection() {
+        try (SqlSession session = sqlSF.openSession()) {
+            GeometryDataWKTMapper GeometryDataWKTMapper = session.getMapper(GeometryDataWKTMapper.class);
+            GeometryData geometryData = new GeometryData();
+            GeometryFactory geometryFactory = new GeometryFactory();
+            GeometryCollection geometryCollection = geometryFactory.createGeometryCollection(new Geometry[] {
+                    geometryFactory.createPoint(new Coordinate(1, 1)),
+                    geometryFactory.createLineString(new Coordinate[] { new Coordinate(1, 1), new Coordinate(2, 2) }),
+                    geometryFactory.createPolygon(new Coordinate[] { new Coordinate(1, 1), new Coordinate(2, 2),
+                            new Coordinate(3, 3), new Coordinate(1, 1) })
+            });
+            geometryData.setGeometry(geometryCollection);
+            Long index = GeometryDataWKTMapper.insertGeometryCollection(geometryData);
+            System.out.println(index);
+            session.commit();
+        } catch(Exception e) {
             System.out.println(e.getMessage());
             fail();
         }

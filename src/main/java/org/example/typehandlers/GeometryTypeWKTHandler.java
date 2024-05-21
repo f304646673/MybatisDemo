@@ -3,6 +3,8 @@ package org.example.typehandlers;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.PrecisionModel;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 import org.locationtech.jts.io.WKTWriter;
@@ -13,9 +15,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class GeometryTypeWKTHandler extends BaseTypeHandler<Geometry>  {
+    private static GeometryFactory factory = new GeometryFactory(new PrecisionModel(PrecisionModel.FLOATING), 4326);
+
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, Geometry parameter, JdbcType jdbcType) throws SQLException {
-        java.sql.Geometry
         String str = serializeGeometry(parameter);
         ps.setString(i, str);;
     }
@@ -56,7 +59,7 @@ public class GeometryTypeWKTHandler extends BaseTypeHandler<Geometry>  {
     }
 
     private static Geometry deserializeGeometry(String wkt) throws ParseException {
-        return new WKTReader().read(wkt);
+        return new WKTReader(factory).read(wkt);
     }
 
 }

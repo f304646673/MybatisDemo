@@ -12,7 +12,7 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.example.mapper.GeometryDataMapper;
+import org.example.mapper.GeometryDataWKBMapper;
 import org.example.model.GeometryData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -40,7 +40,7 @@ public class GeometryDataWKBTest {
     public void testFindAll() {
         List<GeometryData> all = null;
         try (SqlSession session = sqlSF.openSession()) {
-            all = session.getMapper(GeometryDataMapper.class).findAll();
+            all = session.getMapper(GeometryDataWKBMapper.class).findAll();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -52,8 +52,8 @@ public class GeometryDataWKBTest {
     @Test
     public void testFind() {
         try (SqlSession session = sqlSF.openSession()) {
-            GeometryDataMapper geometryDataMapper = session.getMapper(GeometryDataMapper.class);
-            GeometryData one = geometryDataMapper.find(1L);
+            GeometryDataWKBMapper GeometryDataWKBMapper = session.getMapper(GeometryDataWKBMapper.class);
+            GeometryData one = GeometryDataWKBMapper.find(1L);
             System.out.println(one.getGeometry());
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -63,13 +63,13 @@ public class GeometryDataWKBTest {
     @Test
     public void testInsert() {
         try (SqlSession session = sqlSF.openSession()) {
-            GeometryDataMapper geometryDataMapper = session.getMapper(GeometryDataMapper.class);
+            GeometryDataWKBMapper GeometryDataWKBMapper = session.getMapper(GeometryDataWKBMapper.class);
             GeometryData geometryData = new GeometryData();
             GeometryFactory geometryFactory = new GeometryFactory();
             Coordinate coordinate = new Coordinate(1, 1);
             Geometry geometry = geometryFactory.createPoint(coordinate);
             geometryData.setGeometry(geometry);
-            long count = geometryDataMapper.insertOne(geometryData);
+            long count = GeometryDataWKBMapper.insertOne(geometryData);
             System.out.println(count);
             session.commit();
         } catch (Exception e) {
@@ -81,14 +81,14 @@ public class GeometryDataWKBTest {
     @Test
     public void testUpdate() {
         try (SqlSession session = sqlSF.openSession()) {
-            GeometryDataMapper geometryDataMapper = session.getMapper(GeometryDataMapper.class);
+            GeometryDataWKBMapper GeometryDataWKBMapper = session.getMapper(GeometryDataWKBMapper.class);
             GeometryData geometryData = new GeometryData();
             GeometryFactory geometryFactory = new GeometryFactory();
             Coordinate coordinate = new Coordinate(2, 2);
             Geometry geometry = geometryFactory.createPoint(coordinate);
             geometryData.setId(1L);
             geometryData.setGeometry(geometry);
-            long count = geometryDataMapper.updateOne(geometryData);
+            long count = GeometryDataWKBMapper.updateOne(geometryData);
             System.out.println(count);
             session.commit();
         } catch (Exception e) {
@@ -100,7 +100,7 @@ public class GeometryDataWKBTest {
     @Test
     public void testInsertList() {
         try (SqlSession session = sqlSF.openSession()) {
-            GeometryDataMapper geometryDataMapper = session.getMapper(GeometryDataMapper.class);
+            GeometryDataWKBMapper GeometryDataWKBMapper = session.getMapper(GeometryDataWKBMapper.class);
 
             List<GeometryData> geometryDataList = new ArrayList<>();
             {
@@ -187,7 +187,7 @@ public class GeometryDataWKBTest {
                 geometryDataList.add(geometryData);
             }
 
-            long count = geometryDataMapper.insertList(geometryDataList);
+            long count = GeometryDataWKBMapper.insertList(geometryDataList);
             System.out.println(count);
             session.commit();
         } catch (Exception e) {
