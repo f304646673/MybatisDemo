@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AllTypeMapper-1.xml -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.GeometryDataMapper">
+    <resultMap id="GeometryDataResultMap" type="org.example.model.GeometryData">
+        <result property="id" column="id"/>
+        <result property="geometry" column="geometry" typeHandler="org.example.typehandlers.GeometryTypeWKTHandler" jdbcType="BLOB"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="GeometryDataResultMap">
+        select * from geometry_data
+    </select>
+
+    <select id="find" resultMap="GeometryDataResultMap">
+        select * from geometry_data where id = #{id}
+    </select>
+
+    <insert id="insertOne" parameterType="org.example.model.GeometryData"  useGeneratedKeys="true" keyProperty="id">
+        insert into geometry_data(id, geometry, update_time, create_time) values
+        (#{id}, #{geometry, jdbcType=VARCHAR, typeHandler=org.example.typehandlers.GeometryTypeWKTHandler}, now(), now())
+    </insert>
+
+    <insert id="insertList" parameterType="list">
+        insert into geometry_data(id, geometry, update_time, create_time) values
+        <foreach item="item" collection="list" separator=",">
+            (#{item.id}, #{item.geometry, jdbcType=BLOB, typeHandler=org.example.typehandlers.GeometryTypeWKTHandler}, now(), now())
+        </foreach>
+    </insert>
+
+    <update id="updateOne" parameterType="org.example.model.GeometryData">
+        update geometry_data set geometry = #{geometry, jdbcType=BLOB, typeHandler=org.example.typehandlers.GeometryTypeWKTHandler}, update_time = now() where id = #{id} 
+    </update>
+</mapper>
